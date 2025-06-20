@@ -1,0 +1,19 @@
+{
+  "name": "recipehub",
+  "version": "1.0.0",
+  "description": "RecipeHub - Recipe Sharing Platform",
+  "scripts": {
+    "build": "cd client && npm run build",
+    "deploy": "npm run build && firebase deploy --only hosting",
+    "deploy:hosting": "npm run build && firebase deploy --only hosting",
+    "serve": "firebase serve --only hosting",
+    "emulators": "firebase emulators:start --only hosting",
+    "client:install": "cd client && npm install",
+    "install-all": "npm run client:install",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm start"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.0.0"
+  }
+}
