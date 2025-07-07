@@ -31,7 +31,7 @@
 
 ## Vue d'ensemble
 
-RecipeHub met en œuvre une **architecture à 4 couches (N-Tier)** avec une séparation claire des préoccupations entre la présentation, la logique applicative, la logique métier et la persistance des données. Cette architecture offre évolutivité, maintenabilité et un couplage faible entre les composants.
+RecipeHub met en œuvre une **architecture à 3 couches (N-Tier)** avec une séparation claire des préoccupations entre la présentation, la logique applicative, la logique métier et la persistance des données. Cette architecture offre évolutivité, maintenabilité et un couplage faible entre les composants.
 
 ## Analyse de l'architecture N-Tier
 
