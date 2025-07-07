@@ -1,5 +1,34 @@
 # Architecture de l'application RecipeHub
 
+## Diagramme d'architecture globale
+
+```
++-------------------+         +-------------------+         +----------------------+
+|                   |         |                   |         |                      |
+|   Web Client      | <-----> |    Backend API    | <-----> |    PostgreSQL DB     |
+|  (React/Vite)     |  HTTP   | (Node.js/Express) |   SQL   |   (Docker Service)   |
+|   (Docker)        |         |    (Docker)       |         |    (Docker)          |
++-------------------+         +-------------------+         +----------------------+
+        |                             ^
+        |                             |
+        v                             |
++-------------------+                 |
+|                   |                 |
+| Desktop Client    |-----------------+
+|  (ElectronJS)     |   HTTP API
+|                   |
++-------------------+
+
+[ Tous les services (web, backend, db) sont orchestrés via Docker Compose ]
+```
+- **Web Client** : Application React servie par Nginx dans un conteneur Docker, communique avec le backend via HTTP (API REST).
+- **Desktop Client** : Application Electron qui utilise la même API backend pour la synchronisation et les opérations distantes.
+- **Backend API** : Serveur Node.js/Express dans Docker, gère la logique métier, l'authentification, les fichiers, etc.
+- **PostgreSQL DB** : Base de données relationnelle, accessible uniquement par le backend (réseau Docker privé).
+- **Docker** : Orchestration de tous les services, gestion des réseaux, des volumes et de l'isolation.
+
+---
+
 ## Vue d'ensemble
 
 RecipeHub met en œuvre une **architecture à 4 couches (N-Tier)** avec une séparation claire des préoccupations entre la présentation, la logique applicative, la logique métier et la persistance des données. Cette architecture offre évolutivité, maintenabilité et un couplage faible entre les composants.
