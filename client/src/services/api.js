@@ -1,19 +1,12 @@
 import axios from 'axios';
 
-// Use Firebase hosting proxy in production, local in development
-const baseURL = import.meta.env.PROD 
-  ? '/api'  // Use Firebase hosting proxy to route to Functions
-  : 'http://localhost:5000';
-
-console.log('API Base URL:', baseURL);
-console.log('Environment:', import.meta.env.PROD ? 'Production' : 'Development');
-
+// Create axios instance with base configuration
 const api = axios.create({
-  baseURL,
+  baseURL: import.meta.env.VITE_API_URL || '/api',
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
-  // withCredentials: true, // Remove this for direct Functions URL
 });
 
 // Request interceptor to add auth token
@@ -35,7 +28,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
+      // Clear token and redirect to login
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
       window.location.href = '/login';
     }
     return Promise.reject(error);
